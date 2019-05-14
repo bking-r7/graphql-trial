@@ -1,0 +1,13 @@
+type Site {
+   id: ID!
+   name: String!
+   location: String!
+}
+
+type Query {
+   findAllSites: [Site]!
+}
+
+type Mutation {
+   newSite(name: String!, location: String!) : Site!
+}

@@ -1,0 +1,18 @@
+type ScanEngine {
+   id: ID!
+   engineUuid: String!
+   state: String!
+   nextAction: String
+   isPaired: Boolean!
+   site: Site
+}
+
+extend type Query {
+   findAllScanEngines: [ScanEngine]!
+}
+
+extend type Mutation {
+   newScanEngine(engineUuid: String!, state: String!, nextAction: String!, isPaired: Boolean!, site: ID!) : ScanEngine!
+   deleteScanEngine(id: ID!) : Boolean
+   updateScanEngineIsPaired(isPaired: Boolean!, id: ID!) : ScanEngine!
+}

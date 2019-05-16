@@ -34,9 +34,9 @@ public class GraphqlApplication {
 	}
 
 	@Bean
-	public Mutation mutation(SiteRepository siteRepository, ScanEngineRepository scanEngineRepository)
+	public Mutation mutation(DBService dbservice)
 	{
-		return new Mutation(siteRepository, scanEngineRepository);
+		return new Mutation(dbservice);
 	}
 
 	@Bean

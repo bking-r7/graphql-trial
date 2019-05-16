@@ -8,8 +8,7 @@ package com.rapid7.graphql.resolver;
 
 import com.rapid7.graphql.model.ScanEngine;
 import com.rapid7.graphql.model.Site;
-import com.rapid7.graphql.repository.ScanEngineRepository;
-import com.rapid7.graphql.repository.SiteRepository;
+import com.rapid7.graphql.service.DBService;
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
 import java.util.UUID;
 
@@ -18,51 +17,30 @@ import java.util.UUID;
  */
 public class Mutation implements GraphQLMutationResolver
 {
-   private SiteRepository siteRepository;
-   private ScanEngineRepository scanEngineRepository;
+   private DBService dbService;
 
-   public Mutation(SiteRepository siteRepository, ScanEngineRepository scanEngineRepository)
+   public Mutation(DBService dbService)
    {
-      this.siteRepository = siteRepository;
-      this.scanEngineRepository = scanEngineRepository;
+      this.dbService = dbService;
    }
+
 
    public Site newSite(String name, String location)
    {
-      Site site = new Site();
-      site.setName(name);
-      site.setLocation(location);
-
-      siteRepository.save(site);
-
-      return site;
+      return dbService.newSite(name, location);
    }
 
    public ScanEngine newScanEngine(UUID engineUuid, String state, String nextAction, Boolean isPaired, Long siteId)
    {
-      ScanEngine scanEngine = new ScanEngine();
-      scanEngine.setEngineUuid(engineUuid);
-      scanEngine.setState(state);
-      scanEngine.setNextAction(nextAction);
-      scanEngine.setIsPaired(isPaired);
-      scanEngine.setSite(new Site(siteId));
-
-      scanEngineRepository.save(scanEngine);
-
-      return scanEngine;
+      return dbService.newScanEngine(engineUuid, state, nextAction, isPaired, siteId);
    }
 
    public boolean deleteScanEngine(Long id) {
-      scanEngineRepository.deleteById(id);
+      dbService.deleteScanEngine(id);
       return true;
    }
 
    public ScanEngine updateScanEngineIsPaired(Boolean isPaired, Long id) {
-      ScanEngine scanEngine = scanEngineRepository.findById(id).get();
-      scanEngine.setIsPaired(isPaired);
-
-      scanEngineRepository.save(scanEngine);
-
-      return scanEngine;
+      return dbService.updateScanEngineIsPaired(isPaired, id);
    }
 }

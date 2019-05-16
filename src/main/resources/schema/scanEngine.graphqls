@@ -9,6 +9,7 @@ type ScanEngine {
 
 extend type Query {
    findAllScanEngines: [ScanEngine]!
+   countScanEngines: Long!
 }
 
 extend type Mutation {
@@ -16,3 +17,4 @@ extend type Mutation {
    deleteScanEngine(id: ID!) : Boolean
    updateScanEngineIsPaired(isPaired: Boolean!, id: ID!) : ScanEngine!
 }
+

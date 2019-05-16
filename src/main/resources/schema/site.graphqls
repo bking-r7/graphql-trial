@@ -6,8 +6,10 @@ type Site {
 
 type Query {
    findAllSites: [Site]!
+   countSites: Long!
 }
 
 type Mutation {
    newSite(name: String!, location: String!) : Site!
 }
+

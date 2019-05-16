@@ -7,6 +7,7 @@ import com.rapid7.graphql.repository.SiteRepository;
 import com.rapid7.graphql.resolver.Mutation;
 import com.rapid7.graphql.resolver.Query;
 import com.rapid7.graphql.resolver.ScanEngineResolver;
+import com.rapid7.graphql.service.DBService;
 import java.util.UUID;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -27,9 +28,9 @@ public class GraphqlApplication {
 	}
 
 	@Bean
-	public Query query(SiteRepository siteRepository, ScanEngineRepository scanEngineRepository)
+	public Query query(DBService dbservice)
 	{
-		return new Query(siteRepository, scanEngineRepository);
+		return new Query(dbservice);
 	}
 
 	@Bean

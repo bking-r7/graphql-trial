@@ -8,8 +8,7 @@ package com.rapid7.graphql.resolver;
 
 import com.rapid7.graphql.model.ScanEngine;
 import com.rapid7.graphql.model.Site;
-import com.rapid7.graphql.repository.ScanEngineRepository;
-import com.rapid7.graphql.repository.SiteRepository;
+import com.rapid7.graphql.service.DBService;
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 
 /**
@@ -17,32 +16,30 @@ import com.coxautodev.graphql.tools.GraphQLQueryResolver;
  */
 public class Query implements GraphQLQueryResolver
 {
-   private ScanEngineRepository scanEngineRepository;
-   private SiteRepository siteRepository;
+   private DBService dbService;
 
-   public Query(SiteRepository siteRepository, ScanEngineRepository scanEngineRepository)
+   public Query(DBService dbService)
    {
-      this.siteRepository = siteRepository;
-      this.scanEngineRepository = scanEngineRepository;
+      this.dbService = dbService;
    }
 
    public Iterable<Site> findAllSites()
    {
-      return siteRepository.findAll();
+      return dbService.findAllSites();
    }
 
    public Iterable<ScanEngine> findAllScanEngines()
    {
-      return scanEngineRepository.findAll();
+      return dbService.findAllScanEngines();
    }
 
-//   public long countSites()
-//   {
-//      return siteRepository.count();
-//   }
-//
-//   public long countScanEngines()
-//   {
-//      return scanEngineRepository.count();
-//   }
+   public long countSites()
+   {
+      return dbService.countSites();
+   }
+
+   public long countScanEngines()
+   {
+      return dbService.countScanEngines();
+   }
 }
